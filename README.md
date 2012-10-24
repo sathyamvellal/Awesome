@@ -60,3 +60,8 @@ v3.1 changelog (initial release)
 + internet up/down rate
 + popup of few internet details when mouse is over 'NET:' word and network widget
 + volume widget; mouse wheel adjustable, click to mute
+
+Screenshots
+===========
+
+http://dl.dropbox.com/u/30013949/awesome.png
