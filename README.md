@@ -1,7 +1,7 @@
 Awesome
 =======
 
-I use this share my awesome config file, rc.lua and the theme file theme.lua. 
+Here are my awesome config files, rc.lua and the theme file theme.lua. 
 The theme I currently use is the default theme
 
 Requirements
