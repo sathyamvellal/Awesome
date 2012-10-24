@@ -52,8 +52,11 @@ v3.1 changelog (initial release)
 + CPU meter with text and usage graph.
 + CPU core0 bar
 + CPU core1 bar
++ popup for CPU meter showing "top" when mouse is over the CPU meter
 + Memory usage with text and graph
++ popup for Mem graph showing "top" when mouse is over the Mem graph
 + rootfs usage with bar
 + homefs usage with bar
 + internet up/down rate
++ popup of few internet details when mouse is over 'NET:' word and network widget
 + volume widget; mouse wheel adjustable, click to mute
