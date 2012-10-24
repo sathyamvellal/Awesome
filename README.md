@@ -39,7 +39,8 @@ $ cp /etc/xdg/awesome/rc.lua .config/awesome/
 $ cp -r /usr/share/awesome/themes .config/awesome/
 
 Copy the fonts (Consolas and Inconsolata) to .fonts directory in your home. If you don't have .fonts, create one.
-Now copy the .Xresources file to your home.
+Now copy the .Xresources file to your home. To use the .Xresources, add this to your .xinitrc at home: 
+xrdb -merge ~/.Xresources
 
 Next make sure you have wicked, vicious, blingbling libraries and urxvt installed as per the requirements!
 Replace your rc.lua and theme.lua with mine. Make a backup of your original rc.lua and theme.lua files if you like.
