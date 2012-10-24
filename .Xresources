@@ -1,0 +1,82 @@
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+Xft.dpi:                    96
+Xft.antialias:              true
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          true
+URxvt.shading:              15
+! URxvt.urgentOnBell:         true
+! URxvt.visualBell:           true
+URxvt.loginShell:           true
+URxvt.saveLines:            1000
+URxvt.internalBorder:       1
+URxvt.lineSpace:            0
+
+! Fonts
+URxvt.allow_bold:           false
+URxvt*font: xft:Consolas:pixelsize=16
+URxvt*boldFont: xft:Consolas:pixelsize=14
+
+! Fix font space
+URxvt*letterSpace: -1
+
+! Scrollbar
+URxvt.scrollStyle:          urxvt
+URxvt.scrollBar:            false
+
+! Perl extensions
+URxvt.perl-ext-common:      default,matcher
+URxvt.matcher.button:       1
+URxvt.urlLauncher:          chromium
+
+! Cursor
+URxvt.cursorBlink:          true
+URxvt.cursorColor:          #fefefe
+URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt.pointerBlank:         true
+
+!! URxvt Colours
+! General
+URxvt.background:  #000000
+URxvt.foreground:  #fefefe
+
+! black + L.black
+URxvt.color0:      #000000
+URxvt.color8:      #4a4a4a
+
+! red + L.red
+URxvt.color1:      #CC0000
+URxvt.color9:      #FF6161
+
+! green + L.green
+URxvt.color2:      #00BB00
+URxvt.color10:     #3AFF3A
+
+! yellow + L.yellow
+URxvt.color3:      #E2E200
+URxvt.color11:     #FFFF55
+
+! blue + L.blue
+URxvt.color4:      #2BB3FC
+URxvt.color12:     #6B6BFF
+
+! purple + L.purple
+URxvt.color5:      #7000B5
+URxvt.color13:     #BC4EFF
+
+! cyan + L.cyan
+URxvt.color6:      #00BCBC
+URxvt.color14:     #5BFFFF
+
+! white + L.white
+URxvt.color7:      #fefefe
+URxvt.color15:     #FFFFFF
