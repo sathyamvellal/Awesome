@@ -1,8 +1,12 @@
 Awesome
 =======
 
-Here are my awesome config files, rc.lua and the theme file theme.lua. 
-The theme I currently use is the default theme
+My customization and configuration files for Awesome, ArchLinux.
+
++ X Window system configuration => .Xresources
++ Fonts used => Consolas and Inconsolata
++ awesome config directory => .config/awesome
++ awesome theme used => default theme (tweaked)
 
 Requirements
 ============
@@ -10,22 +14,22 @@ Requirements
 1. wicked
 2. vicious
 3. blingbling
+4. rxvt-unicode
 
 I use the above mentioned libraries to decorate my awesome
+ArchLinux users can install vicious and urxvt from the community repository
 
-ArchLinux users can install vicious from the community repository
-
-$ sudo pacman -S vicious
+$ sudo pacman -S vicious rxvt-unicode
 
 The other two can be installed via yaourt from the AUR
 
 $ yaourt --noconfirm -S wicked-git blingbling-git
 
 
-Installation
-============
+Configuring and Customizing
+===========================
 
-Make sure you have a separate configuration of your own in .config
+Make sure you have a separate configuration of your own in .config directory
 If you don't, create one.
 
 $ mkdir .config/awesome -p
@@ -34,10 +38,11 @@ $ cp /etc/xdg/awesome/rc.lua .config/awesome/
 
 $ cp -r /usr/share/awesome/themes .config/awesome/
 
+Copy the fonts (Consolas and Inconsolata) to .fonts directory in your home. If you don't have .fonts, create one.
+Now copy the .Xresources file to your home.
 
-Next make sure you have wicked, vicious and blingbling libraries installed as per the requirements!
-If you have a configuration set of your own, all you need to do is replace your rc.lua and theme.lua with mine. Make a backup of your original rc.lua and theme.lua files if you like.
-
+Next make sure you have wicked, vicious, blingbling libraries and urxvt installed as per the requirements!
+Replace your rc.lua and theme.lua with mine. Make a backup of your original rc.lua and theme.lua files if you like.
 
 Features
 ========
