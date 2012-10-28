@@ -108,7 +108,31 @@ myawesomemenu = {
    { "quit", awesome.quit },
 }
 
+appmenu = {
+}
+
+devmenu = {
+    { "intel bldk", "bldk" },
+    { "eclipse", "eclipse" },
+    { "emacs", "emacs"},
+}
+
+mediamenu = {
+    { "alsaplayer", "alsaplayer" },
+    { "banshee", "banshee" },
+}
+
+sysmenu = {
+    { "arandr", arandr },
+    { "ark", ark },
+    { "flux", "xflux" },
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+				    { "apps", appmenu, beautiful.awesome_icon },
+				    { "dev", devmenu, beautiful.awesome_icon },
+				    { "multimedia", mediamenu, beautiful.awesome_icon },
+				    { "system", sysmenu, beautiful.awesome_icon },
                                     { "terminal", terminal },
                                   }
                         })
@@ -161,6 +185,23 @@ function printf(ch)
     return function(format)
 	    return ch
 	  end
+end
+
+charge_state = {}
+function get_charging_state()
+    return function()
+		local f = io.popen("acpi -b")
+		local out = f:read("*a")
+		f:close()
+
+		for s in string.gmatch(out, ": %a") do
+		    if (string.sub(s, 3, 4) == "C") then
+			return {1, '+'}			
+		    else
+			return {0, '-'}
+		    end
+		end
+	    end
 end
 
 --- }}}
@@ -388,6 +429,15 @@ batttextwidget:set_values_text_color({{"#FF0000",0},
 				    {"#FAAF00", 0.25},
 				    {"#00FF00",0.60}})
 vicious.register(batttextwidget, vicious.widgets.bat, "$2", 5, "BAT0")
+battchargewidget = blingbling.value_text_box.new()
+battchargewidget:set_height(18)
+battchargewidget:set_width(20)
+battchargewidget:set_label("$percent")
+battchargewidget:set_font_size(12)
+battchargewidget:set_background_color("#000000")
+battchargewidget:set_values_text_color({{"#FF0000", 0},
+					{"#00FF00", 0.01}})
+vicious.register(battchargewidget, get_charging_state(), "$1")
 
 fsrootlabel = widget({ type = 'textbox' })
 fsrootlabel.text = '   root: '
@@ -535,6 +585,7 @@ for s = 1, screen.count() do
 	{
 	    battlabel,
 	    batttextwidget,
+	    battchargewidget,
 	    battbarwidget,
 	    cpulabel,
 	    cpugraph,
