@@ -11,10 +11,11 @@ My customization and configuration files for Awesome, ArchLinux.
 Requirements
 ============
 
-1. wicked
-2. vicious
-3. blingbling
-4. rxvt-unicode
+1. rxvt-unicode
+2. wicked
+3. vicious
+4. blingbling
+5. udisks-glue
 
 I use the above mentioned libraries to decorate my awesome
 ArchLinux users can install vicious and urxvt from the community repository
@@ -44,9 +45,16 @@ xrdb -merge ~/.Xresources
 
 Next make sure you have wicked, vicious, blingbling libraries and urxvt installed as per the requirements!
 Replace your rc.lua and theme.lua with mine. Make a backup of your original rc.lua and theme.lua files if you like.
+Place the .udisks-glue.conf in home.
 
 Features
 ========
+
+v3.2 changelog
++ Shows charging/discharging state (Red 0 for discharging and green 1 for charging)
++ Added calendar widget
++ Added udisks-glue widget. Uses udisks for automounting
++ Added icons for use with widgets (themes/default/icons/)
 
 v3.1 changelog (initial release)
 + blue theme
@@ -57,7 +65,7 @@ v3.1 changelog (initial release)
 + battery meter
 + CPU meter with text and usage graph.
 + CPU core0 bar
-+ CPU core1 bar
++ CPU core1 bar 
 + popup for CPU meter showing "top" when mouse is over the CPU meter
 + Memory usage with text and graph
 + popup for Mem graph showing "top" when mouse is over the Mem graph
