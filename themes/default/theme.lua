@@ -93,6 +93,20 @@ theme.layout_spiral  = "/usr/share/awesome/themes/default/layouts/spiralw.png"
 theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
 
 theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+theme.mpdicon = "/home/sathyam/.config/awesome/themes/default/icons/note-48x48.png"
+theme.shortcut = "/home/sathyam/.config/awesome/themes/default/icons/keyboard_shortcut.png"
+theme.shutdown = "/home/sathyam/.config/awesome/themes/default/icons/shutdown.png"
+theme.reboot = "/home/sathyam/.config/awesome/themes/default/icons/reboot.png"
+theme.accept = "/home/sathyam/.config/awesome/themes/default/icons/accept.png"
+theme.cancel = "/home/sathyam/.config/awesome/themes/default/icons/cancel.png"
+theme.calendar = "/home/sathyam/.config/awesome/themes/default/icons/calendar.png"
+theme.task = "/home/sathyam/.config/awesome/themes/default/icons/task.png"
+theme.tasks = "/home/sathyam/.config/awesome/themes/default/icons/tasks.png"
+theme.task_done = "/home/sathyam/.config/awesome/themes/default/icons/task_done.png"
+theme.project = "/home/sathyam/.config/awesome/themes/default/icons/project.png"
+theme.udisks_glue = "/home/sathyam/.config/awesome/themes/default/icons/udisk-glue.png"
+theme.usb = "/home/sathyam/.config/awesome/themes/default/icons/usb.png"
+theme.cdrom = "/home/sathyam/.config/awesome/themes/default/icons/cdrom.png"
 
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80

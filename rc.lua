@@ -14,6 +14,16 @@ require("beautiful")
 -- Notification library
 require("naughty")
 
+function run_once(prg, args)
+  if not prg then
+    do return nil end
+  end
+  if not args then
+    args=""
+  end
+  awful.util.spawn_with_shell('pgrep -f -u $USER -x ' .. prg .. ' || (' .. prg .. ' ' .. args ..')')
+end
+
 -- {{{ user added font
 awesome.font = "Inconsolata 10"
 -- }}}
@@ -71,6 +81,8 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
+
+--run_once("udisks-glue")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -132,7 +144,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 				    { "apps", appmenu, beautiful.awesome_icon },
 				    { "dev", devmenu, beautiful.awesome_icon },
 				    { "multimedia", mediamenu, beautiful.awesome_icon },
-				    { "system", sysmenu, beautiful.awesome_icon },
+				    { "system", sysmenu, beautiful.reboot },
                                     { "terminal", terminal },
                                   }
                         })
@@ -220,112 +232,7 @@ datewidget = widget({
     name = 'datewidget'
 })
 wicked.register(datewidget, wicked.widgets.date,
-    ' <span color="white">  Date:</span> %c ')
-
---memwidget = widget({
---    type = 'textbox',
---    name = 'memwidget'
---})
---wicked.register(memwidget, wicked.widgets.mem,
---    ' <span color="white"> mem:</span> $1% ', nil, nil, {2, 4, 4})
-
---cpuwidget = widget({
---    type = 'textbox',
---    name = 'cpuwidget'
---})
---wicked.register(cpuwidget, wicked.widgets.cpu,
---    ' <span color="white"> CPU:</span> $1% ', nil, nil, {2})
-
---cpu0widget = widget({
---    type = 'textbox',
---    name = 'cpu0widget'
---})
---wicked.register(cpu0widget, wicked.widgets.cpu,
---    ' <span color="white"> cpu0:</span> $2% ', nil, nil, {2})
-
---cpu1widget = widget({
---    type = 'textbox',
---    name = 'cpu1widget'
---})
---wicked.register(cpu1widget, wicked.widgets.cpu,
---   ' <span color="white"> cpu1:</span> $3% ', nil, nil, {2})
-
---netwidget = widget({
---    type = 'textbox',
---    name = 'netwidget'
---})
---wicked.register(netwidget, wicked.widgets.net,
---    ' <span color="white"> Down:</span> ${wlan0 down} [${wlan0 rx}] <span color="white"> Up:</span> ${wlan0 up} [${wlan0 tx}]')
-
---battery = 0
---battwidget = widget({
---    type = 'textbox',
---    name = 'battwidget'
---})
---wicked.register(battwidget, read_battery_life(battery), ' <span color="white"> batt:</span> $1% ')
-
---batbarwidget = awful.widget.progressbar()
---batbarwidget:set_width(50)
---batbarwidget:set_height(18)
---batbarwidget:set_vertical(false)
---batbarwidget:set_background_color("#000000")
---batbarwidget:set_border_color("#FFFFFF")
-----batbarwidget:set_color("#00FF00")
---batbarwidget:set_gradient_colors({"#FF0000", "#FFFF00", "#AFFF00", "#00FF00"})
---vicious.register(batbarwidget, vicious.widgets.bat, "$2", 5, "BAT0")
-
---cpubarwidget = awful.widget.progressbar()
---cpubarwidget:set_width(11)
---cpubarwidget:set_height(18)
---cpubarwidget:set_vertical(true)
---cpubarwidget:set_background_color("#000000")
---cpubarwidget:set_border_color("#FFFFFF")
---cpubarwidget:set_gradient_colors({"#00FF00", "#FFFF00","#FF0000"})
---vicious.register(cpubarwidget, vicious.widgets.cpu, "$1", 0.75)
-
---cpu0barwidget = awful.widget.progressbar()
---cpu0barwidget:set_width(11)
---cpu0barwidget:set_height(18)
---cpu0barwidget:set_vertical(true)
---cpu0barwidget:set_background_color("#000000")
---cpu0barwidget:set_border_color("#FFFFFF")
---cpu0barwidget:set_gradient_colors({"#00FF00", "#FFFF00","#FF0000"})
---vicious.register(cpu0barwidget, vicious.widgets.cpu, "$2", 0.75)
-
---cpu1barwidget = awful.widget.progressbar()
---cpu1barwidget:set_width(11)
---cpu1barwidget:set_height(18)
---cpu1barwidget:set_vertical(true)
---cpu1barwidget:set_background_color("#000000")
---cpu1barwidget:set_border_color("#FFFFFF")
---cpu1barwidget:set_gradient_colors({"#00FF00", "#FFFF00","#FF0000"})
---vicious.register(cpu1barwidget, vicious.widgets.cpu, "$2", 0.75)
-
---membarwidget = awful.widget.progressbar()
---membarwidget:set_width(50)
---membarwidget:set_height(18)
---membarwidget:set_vertical(false)
---membarwidget:set_background_color("#000000")
---membarwidget:set_border_color("#FFFFFF")
---membarwidget:set_gradient_colors({"#00FF00", "#FFFF00","#FF0000"})
---vicious.register(membarwidget, vicious.widgets.mem, "$1", 1)
-
--- }}}
-
---- {{{ blingbling widgets
-
---battbarwidget_root=blingbling.value_text_box.new()
---battbarwidget_root:set_height(18)
---battbarwidget_root:set_width(100)
---battbarwidget_root:set_v_margin(2)
---battbarwidget_root:set_filled(true)
---battbarwidget_root:set_filled_color("#000099")
---battbarwidget_root:set_values_text_color({{"#88aaff",0},{"#d4aaff", 0.5},{"#d455ff",0.75}})
---battbarwidget_root:set_default_text_color(beautiful.textbox_widget_as_label_font_color)
---battbarwidget_root:set_rounded_size(0.4)
---battbarwidget_root:set_background_color("#000044")
---battbarwidget_root:set_label("/root usage:$percent %")
---vicious.register(battbarwidget_root, vicious.widgets.fs, "${/ used_p}", 120)
+    ' <span color="white">Date:</span> %c ')
 
 cpulabel = widget({ type = 'textbox' })
 cpulabel.text = ' CPU: '
@@ -407,7 +314,6 @@ volwidget:update_master()
 volwidget:set_master_control()
 volwidget:set_graph_color("#019ADB")
 volwidget:set_bar(false)
---vicious.register(volwidget, volwidget:update_master(), nil)
 
 battlabel = widget({ type = "textbox", name = "battlabel" })
 battlabel.text = ' BATT:'
@@ -463,14 +369,22 @@ fshomewidget:set_background_color("#001122")
 fshomewidget:set_graph_color("#019ADB")
 vicious.register(fshomewidget, vicious.widgets.fs, "${/home used_p}", 120)
 
-udisks_glue=blingbling.udisks_glue.new(beautiful.dialog_ok)
-udisks_glue:set_mount_icon(beautiful.dialog_ok)
-udisks_glue:set_umount_icon(beautiful.dialog_cancel)
-udisks_glue:set_detach_icon(beautiful.dialog_cancel)
-udisks_glue:set_Usb_icon(beautiful.usb_iconn)
-udisks_glue:set_Cdrom_icon(beautiful.cdrom_icon)
+udisks_glue=blingbling.udisks_glue.new(beautiful.udisks_glue)
+udisks_glue:set_mount_icon(beautiful.accept)
+udisks_glue:set_umount_icon(beautiful.cancel)
+udisks_glue:set_detach_icon(beautiful.cancel)
+udisks_glue:set_Usb_icon(beautiful.usb)
+udisks_glue:set_Cdrom_icon(beautiful.cdrom)
+awful.widget.layout.margins[udisks_glue.widget]= { top = 4}
+udisks_glue.widget.resize= false
 
-reboot=blingbling.system.rebootmenu(beautiful.reboot, beautiful.dialog_ok, beautiful.dialog_cancel)
+my_cal = blingbling.calendar.new({type = "imagebox", image = beautiful.calendar})
+my_cal:set_cell_padding(4)
+my_cal:set_title_font_size(18)
+my_cal:set_font_size(16)
+my_cal:set_inter_margin(3)
+my_cal:set_columns_lines_titles_font_size(12)
+my_cal:set_columns_lines_titles_text_color("#d4aa00ff")
 
 -- }}}
 
@@ -576,6 +490,11 @@ for s = 1, screen.count() do
         mylayoutbox[s],
 	datewidget,
         --mytextclock,
+	sep,
+	udisks_glue.widget,
+	sep,
+	my_cal.widget,
+	sep,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
