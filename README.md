@@ -1,4 +1,4 @@
-Awesome
+Awesome -- DISCONTINUED !!
 =======
 
 My customization and configuration files for Awesome, ArchLinux.
