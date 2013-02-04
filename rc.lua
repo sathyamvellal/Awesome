@@ -1,7 +1,11 @@
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local wicked = require("wicked")
+local vicious = require("vicious")
+local bashets = require("bashets")
 awful.rules = require("awful.rules")
+
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -30,7 +34,7 @@ do
 
         naughty.notify({ preset = naughty.config.presets.critical,
                          title = "Oops, an error happened!",
-                         text = err })
+                         ext = err })
         in_error = false
     end)
 end
@@ -38,11 +42,12 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+--beautiful.init("/home/sathyam/.config/awesome/themes/default/theme.lua")
+beautiful.init("/home/sathyam/.config/awesome/themes/nice-and-clean-theme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = "urxvt"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -112,11 +117,59 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
+-- {{{ Custom Widgets
+
+-- {{{ Custom functions for widgets
+
+function read_battery_life(number)
+   return function(format)
+             local fh = io.popen('acpi')
+             local output = fh:read("*a")
+             fh:close()
+
+             count = 0
+             for s in string.gmatch(output, "(%d+)%%") do
+                if number == count then
+                   return {s}
+                end
+                count = count + 1
+             end
+          end
+end
+
+
+-- }}}
+
+-- Battmon
+battmon = wibox.widget.textbox()
+battmon:set_text("BATT: ")
+batt60 = wibox.widget.textbox()
+batt25 = wibox.widget.textbox()
+batt0 = wibox.widget.textbox()
+
+-- Battery Progress bar
+battgress = awful.widget.progressbar()
+battgress:set_max_value(100)
+--battgress
+
+-- }}}
+
+-- Custom Misc
+custombox = {}
+
+-- {{{  Bashets
+bashets.set_script_path("/dev/shm/bashets/") 
+bashets.register("batt60.sh", { widget = batt60, format = "<span color=\"light green\">$1$2$3</span>", separator = "|", update_time = 3 })
+bashets.register("batt25.sh", { widget = batt25, format = "<span color=\"yellow\">$1$2$3</span>", separator = "|", update_time = 3 })
+bashets.register("batt0.sh", { widget = batt0, format = "<span color=\"red\">$1$2$3</span>", separator = "|", update_time = 3 })
+bashets.start()
+-- }}}
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
-mytaglist = {}
+mytaglist = { }
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -178,7 +231,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibox({ position = "bottom", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -199,6 +252,28 @@ for s = 1, screen.count() do
     layout:set_right(right_layout)
 
     mywibox[s]:set_widget(layout)
+
+	-- The following are for the custom wiboxes
+	
+	-- Create the wibox
+	custombox[s] = awful.wibox({ position = "top", screen = s })
+
+	-- Widgets to the left
+	local left_widgets = wibox.layout.fixed.horizontal()
+	left_widgets:add(battmon)
+	left_widgets:add(batt60)
+	left_widgets:add(batt25)
+	left_widgets:add(batt0)
+
+	-- Widgets to the right
+	local right_widgets = wibox.layout.fixed.horizontal()
+
+	-- Combine them
+	local widgets = wibox.layout.align.horizontal()
+	widgets:set_left(left_widgets)
+	widgets:set_right(right_widgets)
+	custombox[s]:set_widget(widgets)
+
 end
 -- }}}
 
@@ -226,7 +301,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -268,6 +343,16 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+
+	-- Custom Shortcuts
+    awful.key({ modkey,           }, "v", function () awful.util.spawn("vim -g") end),
+    awful.key({ modkey,           }, "a", function () awful.util.spawn("arandr") end),
+    awful.key({ modkey,           }, "s", function () awful.util.spawn("subl") end),
+    awful.key({ modkey,           }, "e", function () awful.util.spawn("eclipse") end),
+    awful.key({ modkey,           }, "w", function () awful.util.spawn("weka") end),
+    awful.key({ modkey,           }, "t", function () awful.util.spawn("konsole") end),
+    awful.key({ modkey,           }, "c", function () awful.util.spawn("chromium") end),
+
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
@@ -348,13 +433,18 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+					 size_hints_honor = false } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+	{ rule = { class = "urxvt" },
+	  properties = { size_hints_honor = false, 
+					 maximized_vertical = true,
+					 maximized_horizontal = true  } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -383,8 +473,9 @@ client.connect_signal("manage", function (c, startup)
             awful.placement.no_offscreen(c)
         end
     end
+	c.size_hints_honor = false
 
-    local titlebars_enabled = false
+    local titlebars_enabled = true
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()

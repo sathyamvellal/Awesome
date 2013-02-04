@@ -1,6 +1,6 @@
 background no
 use_xft yes
-xftfont Helvetica:size=40
+xftfont Inconsolata:size=40
 xftalpha 0.9
 update_interval 3.0
 total_run_times 0
@@ -18,7 +18,7 @@ draw_graph_borders yes
 default_color 808080
 default_shade_color 101319
 default_outline_color green
-alignment top_left
+alignment middle_left
 gap_x 400
 gap_y 415
 no_buffers yes

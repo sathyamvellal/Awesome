@@ -4,7 +4,8 @@
 theme = {}
 --theme.theme_dir = awful.util.getdir("config") .. "/themes/nice-and-clean-theme"
 theme.theme_dir = "/home/sathyam/.config/awesome/themes/nice-and-clean-theme"
-theme.wallpaper_cmd = { "awsetbg " .. theme.theme_dir .. "/background.jpg" }
+theme.wallpaper_cmd = { "awsetbg " .. theme.theme_dir .. "/background-large.jpg" }
+theme.wallpaper = "/home/sathyam/Pictures/tdkrblack.jpg"
 
 theme.font          = "inconsolata 10"
 
