@@ -1,5 +1,5 @@
-Awesome -- DISCONTINUED !!
-=======
+Bluesome v4.0
+=============
 
 My customization and configuration files for Awesome, ArchLinux.
 
@@ -14,8 +14,8 @@ Requirements
 1. rxvt-unicode
 2. wicked
 3. vicious
-4. blingbling
-5. udisks-glue
+4. blingbling-git
+5. awesompd
 
 I use the above mentioned libraries to decorate my awesome
 ArchLinux users can install vicious and urxvt from the community repository
@@ -45,18 +45,22 @@ xrdb -merge ~/.Xresources
 
 Next make sure you have wicked, vicious, blingbling libraries and urxvt installed as per the requirements!
 Replace your rc.lua and theme.lua with mine. Make a backup of your original rc.lua and theme.lua files if you like.
-Place the .udisks-glue.conf in home.
 
 Features
 ========
 
-v3.2 changelog
+v4.0 changelog - Bluesome
++ ported to new Lua5.2
++ tweaked upper status bar
++ more blue colors added
+
+v3.2 changelog - Awesome Blue
 + Shows charging/discharging state (Red 0 for discharging and green 1 for charging)
 + Added calendar widget
 + Added udisks-glue widget. Uses udisks for automounting
 + Added icons for use with widgets (themes/default/icons/)
 
-v3.1 changelog (initial release)
+v3.1 changelog
 + blue theme
 + two wiboxes, one at the top and one at the bottom
 + Bottom wibox contains awesome menu, desktop switcher window switcher, date and layout switcher
