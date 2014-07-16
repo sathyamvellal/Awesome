@@ -1,4 +1,4 @@
-Bluesome v4.0
+Bluesome v2.0
 =============
 
 My customization and configuration files for Awesome, ArchLinux.
@@ -49,18 +49,18 @@ Replace your rc.lua and theme.lua with mine. Make a backup of your original rc.l
 Features
 ========
 
-v4.0 changelog - Bluesome
+v2.0 changelog - Bluesome
 + ported to new Lua5.2
 + tweaked upper status bar
 + more blue colors added
 
-v3.2 changelog - Awesome Blue
+v1.2 changelog - Awesome Blue
 + Shows charging/discharging state (Red 0 for discharging and green 1 for charging)
 + Added calendar widget
 + Added udisks-glue widget. Uses udisks for automounting
 + Added icons for use with widgets (themes/default/icons/)
 
-v3.1 changelog
+v1.1 changelog
 + blue theme
 + two wiboxes, one at the top and one at the bottom
 + Bottom wibox contains awesome menu, desktop switcher window switcher, date and layout switcher
@@ -78,6 +78,9 @@ v3.1 changelog
 + internet up/down rate
 + popup of few internet details when mouse is over 'NET:' word and network widget
 + volume widget; mouse wheel adjustable, click to mute
+
+v1.0 changelog (initial release)
++ using default theme
 
 Screenshots
 ===========
